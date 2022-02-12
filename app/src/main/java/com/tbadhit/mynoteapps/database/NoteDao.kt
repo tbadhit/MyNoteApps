@@ -1,6 +1,6 @@
 package com.tbadhit.mynoteapps.database
 
-import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 
@@ -16,7 +16,7 @@ interface NoteDao {
     fun delete(note: Note)
 
     @RawQuery(observedEntities = [Note::class])
-    fun getAllNotes(query: SupportSQLiteQuery): DataSource.Factory<Int, Note>
+    fun getAllNotes(query: SupportSQLiteQuery): PagingSource<Int, Note>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(list: List<Note>)

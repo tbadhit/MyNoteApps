@@ -1,20 +1,18 @@
 package com.tbadhit.mynoteapps.ui.main
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tbadhit.mynoteapps.R
 import com.tbadhit.mynoteapps.database.Note
 import com.tbadhit.mynoteapps.databinding.ItemNoteBinding
 import com.tbadhit.mynoteapps.ui.insert.NoteAddUpdateActivity
 
-class NotePagedListAdapter(private val activity: AppCompatActivity): PagedListAdapter<Note, NotePagedListAdapter.NoteViewHolder>(
+class NotePagedListAdapter(private val activity: AppCompatActivity): PagingDataAdapter<Note, NotePagedListAdapter.NoteViewHolder>(
     DIFF_CALLBACK) {
 
     private val resultLauncher = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -39,7 +37,7 @@ class NotePagedListAdapter(private val activity: AppCompatActivity): PagedListAd
                 tvItemDescription.text = note.description
                 cvItemNote.setOnClickListener {
                     val intent = Intent(activity, NoteAddUpdateActivity::class.java)
-                    intent.putExtra(NoteAddUpdateActivity.EXTRA_POSITION, adapterPosition)
+                    intent.putExtra(NoteAddUpdateActivity.EXTRA_POSITION, bindingAdapterPosition)
                     intent.putExtra(NoteAddUpdateActivity.EXTRA_NOTE, note)
                     resultLauncher.launch(intent)
                 }

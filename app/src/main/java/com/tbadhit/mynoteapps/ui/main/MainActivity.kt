@@ -9,7 +9,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.tbadhit.mynoteapps.R
@@ -70,9 +70,9 @@ class MainActivity : AppCompatActivity() {
         return ViewModelProvider(activity, factory)[MainViewModel::class.java]
     }
 
-    private val noteObserver = Observer<PagedList<Note>> {noteList ->
+    private val noteObserver = Observer<PagingData<Note>> {noteList ->
         if (noteList != null) {
-            adapter.submitList(noteList)
+            adapter.submitData(lifecycle,noteList)
         }
     }
 

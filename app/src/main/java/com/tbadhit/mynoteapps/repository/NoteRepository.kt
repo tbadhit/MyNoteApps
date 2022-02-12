@@ -1,8 +1,7 @@
 package com.tbadhit.mynoteapps.repository
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import com.tbadhit.mynoteapps.database.Note
 import com.tbadhit.mynoteapps.database.NoteDao
 import com.tbadhit.mynoteapps.database.NoteRoomDatabase
@@ -19,7 +18,7 @@ class NoteRepository(application: Application) {
         mNotesDao = db.noteDao()
     }
 
-    fun getAllNotes(sort: String): DataSource.Factory<Int, Note> {
+    fun getAllNotes(sort: String): PagingSource<Int, Note> {
         val query = SortUtils.getSortedQuery(sort)
         return mNotesDao.getAllNotes(query)
     }
